@@ -2,23 +2,14 @@ const express = require('express')
 const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 
+const schema = require('./schema/schema')
+
 const app = express()
 
 const port = 4000
 
-const schema =buildSchema(`
-    type Query {
-        message: String
-    }
-`)
-
-const root = {
-  message: () => 'Hello World'
-}
-
 app.use("/graphql", graphqlHTTP({
- schema: schema,
- rootValue: root,
+ schema,
  graphiql: true
 }))
 
